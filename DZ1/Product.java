@@ -1,5 +1,3 @@
-package ru.geekbrains.lesson1;
-
 /**
  * Продукт
  */

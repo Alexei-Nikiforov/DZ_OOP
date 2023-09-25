@@ -1,5 +1,3 @@
-package ru.geekbrains.lesson1;
-
 import java.util.List;
 
 public class VendingMachine {
@@ -9,6 +7,7 @@ public class VendingMachine {
     public VendingMachine(List<Product> products){
         this.products = products;
     }
+    
     public BottleOfMilk getBottleOfMilk(String name, int volume) {
         for (Product product : products){
             if (product instanceof BottleOfMilk){
@@ -20,5 +19,14 @@ public class VendingMachine {
         return null;
     }
 
-
+    public Chocolate getChocolate(String name, int calories) {
+        for (Product product : products){
+            if (product instanceof Chocolate){
+                Chocolate chocolate = (Chocolate)product;
+                if (chocolate.getName().equals(name) && chocolate.getCalories() == calories)
+                    return chocolate;
+            }
+        }
+        return null;
+    }
 }

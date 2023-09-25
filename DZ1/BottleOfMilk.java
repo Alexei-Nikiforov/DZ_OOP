@@ -1,5 +1,3 @@
-package ru.geekbrains.lesson1;
-
 public class BottleOfMilk extends Product{
 
     private int volume; // объем

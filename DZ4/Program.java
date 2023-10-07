@@ -81,5 +81,10 @@ public class Program {
         // попытаемся забрать фрукт из 1 коробки
         box1.deleteFruct(apple);
         System.out.println("Коробка 1 - " + box1);
+
+        System.out.println("--------");
+        // попытаемся забрать яблоко из 2 коробки
+        box2.deleteFruct(apple);
+        System.out.println("Коробка 2 - " + box2);
     }
 }

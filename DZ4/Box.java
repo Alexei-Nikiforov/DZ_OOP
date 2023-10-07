@@ -68,12 +68,12 @@ public class Box<T extends Fruct> {
      * метод удаления фрукта из коробки
      */
     public void deleteFruct(T fruct) {
-        if(this.getWeight() > 0) {
+        if((this.getWeight() > 0 ) && (this.getFructs().get(0).getClass() == fruct.getClass())) {
             fructs.remove(fruct);
             wtBox -= fruct.getWeight();
             System.out.println("Фрукт удален");
         } else {
-            System.out.println("Коробка пустая, из нее нечего взять");
+            System.out.println("Не получится забрать фрукт");
         }
     }
 

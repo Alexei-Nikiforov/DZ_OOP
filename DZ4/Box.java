@@ -1,19 +1,30 @@
 package DZ4;
 
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.LinkedList;
 
 public class Box<T extends Fruct> {
 
-    private ArrayList<T> fructs = new ArrayList<>();
+    private LinkedList<T> fruits;
 
-    private float wtBox = 0f;
+    private float wtBox;
 
     public Box() {
-        this.fructs = new ArrayList<>();
+        this.fruits = new LinkedList<>();
     }
 
-    public ArrayList<T> getFructs() {
-        return fructs;
+    public Box(Collection<T> fruits) {
+        this.fruits = new LinkedList<>(fruits);
+    }
+
+    public Box(T... fruits) {
+        this.fruits = new LinkedList<>(Arrays.asList(fruits));
+    }
+
+
+    public LinkedList<T> getFructs() {
+        return fruits;
     }
    
     @Override
@@ -23,7 +34,7 @@ public class Box<T extends Fruct> {
             return String.format("Коробка пустая");
         } else {
             return String.format("В коробке c %s находится %s и она весит %sf",
-            this.getFructs().get(0), fructs, wtBox);
+            this.getFructs().get(0), fruits, wtBox);
         }
     }
 
@@ -31,6 +42,11 @@ public class Box<T extends Fruct> {
      * метод расчета веса коробки
      */
     public float getWeight() {
+        if (fruits.size() == 0) {
+            wtBox = 0f;
+        } else {
+            wtBox = fruits.size() * fruits.get(0).getWeight();
+        }
         return wtBox;
     }
 
@@ -38,26 +54,25 @@ public class Box<T extends Fruct> {
      * метод проверки веса текущей коробки с передаваемой в параметрах
      */
     public boolean compare(Box<T> box) {
-        if(this.getWeight() == box.getWeight()) {
-            System.out.println("Веса обоих коробок равны");
-            return true;
-        } else {
-            System.out.println("Веса обоих коробок не равны");
-            return false;
-        }
+        return Math.abs(this.getWeight() - box.getWeight()) < 0.001;
+        // if(this.getWeight() == box.getWeight()) {
+        //     System.out.println("Веса обоих коробок равны");
+        //     return true;
+        // } else {
+        //     System.out.println("Веса обоих коробок не равны");
+        //     return false;
+        // }
     }
 
     /*
      * метод добавления фрукта в коробку
      */
-    public void addFruct(T fruct) {
+    public void addFruct(T fruit) {
         if(this.getWeight() == 0) {
-            fructs.add(fruct);
-            wtBox = wtBox + fruct.getWeight();
+            fruits.add(fruit);
             System.out.println("Фрукт добавлен");
-        } else if((this.getWeight() > 0) && (this.getFructs().get(0).getClass() == fruct.getClass())) {
-            fructs.add(fruct);
-            wtBox += fruct.getWeight();
+        } else if((this.getWeight() > 0) && (this.getFructs().get(0).getClass() == fruit.getClass())) {
+            fruits.add(fruit);
             System.out.println("Фрукт добавлен");
         } else {
             System.out.println("Нельзя добавить в текущую коробку, возьмите другую коробку.");
@@ -67,10 +82,9 @@ public class Box<T extends Fruct> {
     /*
      * метод удаления фрукта из коробки
      */
-    public void deleteFruct(T fruct) {
-        if((this.getWeight() > 0 ) && (this.getFructs().get(0).getClass() == fruct.getClass())) {
-            fructs.remove(fruct);
-            wtBox -= fruct.getWeight();
+    public void deleteFruct(T fruit) {
+        if((this.getWeight() > 0 ) && (this.getFructs().get(0).getClass() == fruit.getClass())) {
+            fruits.remove(fruit);
             System.out.println("Фрукт удален");
         } else {
             System.out.println("Не получится забрать фрукт");
@@ -82,18 +96,14 @@ public class Box<T extends Fruct> {
      */
     public void pouringFruit (Box<T> box) {
         if (box.getWeight() == 0) {
-            for (T fruct : fructs) {
-                box.addFruct(fruct);        
-            }
-            for (T fruct : box.getFructs()) {
-                this.deleteFruct(fruct);
-            }
+            box.getFructs().addAll(fruits);
+            fruits.clear();
         } else if (this.getFructs().get(0).getClass() == box.getFructs().get(0).getClass()) {
-            for (T fruct : fructs) {
-                box.addFruct(fruct);        
+            for (T fruit : fruits) {
+                box.addFruct(fruit);        
             }
-            for (T fruct : box.getFructs()) {
-                this.deleteFruct(fruct);              
+            for (T fruit : box.getFructs()) {
+                this.deleteFruct(fruit);              
             }
         } else {
             System.out.println("Возьмите другую коробку, в текущую нельзя пересыпать");

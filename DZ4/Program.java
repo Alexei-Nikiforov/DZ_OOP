@@ -34,6 +34,7 @@ public class Program {
         box1.addFruct(apple);
         box1.addFruct(apple);
         box1.addFruct(apple);
+        box1.addFruct(orange);
         System.out.println("Коробка 1 - " + box1);
 
         System.out.println("--------");

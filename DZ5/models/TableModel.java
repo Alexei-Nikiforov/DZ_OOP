@@ -58,9 +58,9 @@ public class TableModel implements Model {
      */
     @Override
     public int changeReservationTable(int oldReservation, Date reservationDate, int tableNo, String name) {  
-        Reservation newReservation = new Reservation(reservationDate, name);
         for (Table table: loadTables()) {
             if (table.getNo() == tableNo){
+                Reservation newReservation = new Reservation(reservationDate, name);
                 table.getReservations().add(newReservation);
                 table.getReservations().remove(oldReservation);
                 return newReservation.getId();

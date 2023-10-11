@@ -34,7 +34,8 @@ public class BookingPresenter implements ViewObserver {
 
     /**
      * Отобразить результат бронирования на представлении
-     * @param reservationId результат бронирования
+     * @param reservationId номер бронирования
+     * @param numberTable номер столика
      */
     private void updateUIShowReservationResult(int reservationId, int numberTable){
         view.showReservationTableResult(reservationId, numberTable);
